@@ -11,6 +11,25 @@ const thingamabobs = [
     {id: 3, name: "sapakas", price: 2000}
 ]
 
+const displayCars = [{
+    Car:{
+        carBrand:"BMW",
+        color:"violet",
+        "Tinted windows": true
+    }
+}]
+
+document.getElementById("app").innerHTML =
+`
+<div id="json">
+    <h1> Car properties </h1>
+    <p>Brand of car: ${displayCars[0].Car.carBrand}</p>
+    <p>Brand of car: ${displayCars[0].Car.Color}</p>
+    <p>Brand of car: ${displayCars[0].Car["Tinted windows"]}</p>
+
+</div>
+`
+
 app.get('/thingamabobs', (req, res) => {res.send(thingamabobs)})
 
 app.get('/thingamabobs/:id', (req, res) => {
@@ -47,14 +66,13 @@ app.delete('/thingamabobs/:id', (req,res) => {
 })
 
 app.put('/thingamabobs/:id', (req, res) => {
-    if (typeof thingamabobs[req.params.id - 1] === 'undefined') 
-    {
-        return res.status(404).send({ error: "Client not found" })
+    if (typeof thingamabobs[req.params.id - 1] === 'undefined') {
+        return res.status(404).send({error: "object not found, check your thingamob id"});
     }
-    thingamabobs[req.params.id - 1].name = req.body.name;
-    thingamabobs[req.params.id - 1].email = req.body.email;
-
-    res.send(thingamabobs[req.params.id - 1]);
+    const updatedThingamabobs = thingamabobs[req.params.id - 1];
+    updatedThingamabobs.price = req.body.price ? req.body.price : updatedThingamabobs.price;
+    updatedThingamabobs.name = req.body.name ? req.body.name : updatedThingamabobs.name;
+    res.status(200).send(updatedThingamabobs);
 })
 
 app.listen(8080, () => {console.log('API running at: http://localhost:8080')})
@@ -104,16 +122,14 @@ app.delete('/clients/:id', (req,res) => {
 })
 
 app.put('/clients/:id', (req, res) => {
-    if (typeof clients[req.params.id - 1] === 'undefined') 
-    {
-        return res.status(404).send({ error: "Client not found" })
+    if (typeof clients[req.params.id - 1] === 'undefined') {
+        return res.status(404).send({error: "object not found, check your thingamob id"});
     }
-    clients[req.params.id - 1].name = req.body.name;
-    clients[req.params.id - 1].email = req.body.email;
-
-    res.send(clients[req.params.id - 1])
+    const updatedclients = clients[req.params.id - 1];
+    updatedclients.email = req.body.email ? req.body.email : updatedclients.email;
+    updatedclients.name = req.body.name ? req.body.name : updatedclients.name;
+    res.status(200).send(updatedclients);
 })
-
 
 
 
