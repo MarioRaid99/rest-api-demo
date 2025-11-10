@@ -15,20 +15,22 @@ const displayCars = [{
     Car:{
         carBrand:"BMW",
         color:"violet",
-        "Tinted windows": true
+        "Tinted windows": true,
+        wheels: 76,
+        //lisa juurde kokku 5 erinevat andmeomdust milles vähemalt 
+        //üks on tekst, teine arv ja kolmas objekt objektis kahe omdausega
     }
 }]
 
-document.getElementById("app").innerHTML =
-`
-<div id="json">
-    <h1> Car properties </h1>
-    <p>Brand of car: ${displayCars[0].Car.carBrand}</p>
-    <p>Brand of car: ${displayCars[0].Car.Color}</p>
-    <p>Brand of car: ${displayCars[0].Car["Tinted windows"]}</p>
+document.getElementById("app").innerHTML =`
+    <div id="json">
+        <h1> Car properties </h1>
+        <p>Brand of car: ${displayCars[0].Car.carBrand}</p>
+        <p>Brand of car: ${displayCars[0].Car.Color}</p>
+        <p>Brand of car: ${displayCars[0].Car["Tinted windows"]}</p>
 
-</div>
-`
+    </div>
+    `;
 
 app.get('/thingamabobs', (req, res) => {res.send(thingamabobs)})
 
